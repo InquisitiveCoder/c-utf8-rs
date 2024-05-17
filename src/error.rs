@@ -50,7 +50,7 @@ impl ::std::error::Error for Error {
     }
 
     #[inline]
-    fn cause(&self) -> Option<&::std::error::Error> {
+    fn cause(&self) -> Option<&dyn (::std::error::Error)> {
         match *self {
             Error::Utf8(ref err) => Some(err),
             _ => None,
