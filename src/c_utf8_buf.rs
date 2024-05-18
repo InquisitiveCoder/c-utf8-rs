@@ -226,6 +226,9 @@ impl CUtf8Buf {
 
     /// Creates a new C string from a native Rust string without checking for a
     /// nul terminator.
+    ///
+    /// # Safety
+    /// `s` must be nul-terminated.
     #[inline]
     pub unsafe fn from_string_unchecked(s: String) -> CUtf8Buf {
         CUtf8Buf(s)

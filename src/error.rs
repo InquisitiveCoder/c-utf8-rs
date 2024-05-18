@@ -5,7 +5,7 @@ use core::str::Utf8Error;
 use std::ffi::FromBytesWithNulError;
 
 /// The error for converting types to [`CUtf8`](struct.CUtf8.html).
-#[derive(Clone, Debug)]
+#[derive(Copy, Eq, PartialEq, Clone, Debug)]
 pub enum Error {
     /// An error indicating that the nul byte was not at the end.
     Nul,
@@ -41,14 +41,6 @@ impl fmt::Display for Error {
 
 #[cfg(feature = "std")]
 impl ::std::error::Error for Error {
-    #[inline]
-    fn description(&self) -> &str {
-        match *self {
-            Error::Nul => NUL_ERROR,
-            Error::Utf8(ref err) => err.description(),
-        }
-    }
-
     #[inline]
     fn cause(&self) -> Option<&dyn (::std::error::Error)> {
         match *self {
