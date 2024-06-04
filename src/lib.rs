@@ -117,12 +117,7 @@ use std as core;
 #[macro_export]
 macro_rules! c_utf8 {
     ($s:expr) => {
-        unsafe {
-            // An internal type that allows for converting static Rust string
-            // slices into static CUtf8 slices within a constant expression
-            union _Ref<'a> { s: &'a str, c: &'a $crate::CUtf8 }
-            _Ref { s: concat!($s, "\0") }.c
-        }
+        unsafe { $crate::CUtf8::from_str_unchecked(concat!($s, "\0")) }
     }
 }
 
